@@ -1,1 +1,5 @@
-
+title: HispanicSoccerLeague
+#logo
+description: Official Hispanic Soccer League Website
+#show_domain: true
+theme: jekyll-theme-minimal
