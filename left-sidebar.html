@@ -69,7 +69,7 @@
 													</tr>
 													
 													<tr>
-														<th>1</th>
+														<th>8</th>
 														<th>Amazonas</th>
 														<th>0</th>
 														<th>0</th>
@@ -119,7 +119,7 @@
 													</tr>
 
 													<tr>
-														<th>8</th>
+														<th>1</th>
 														<th>Golden FC</th>
 														<th>0</th>
 														<th>0</th>
@@ -175,36 +175,40 @@
 
 								
 <script>
-function sortStandings() {
-    const table = document.getElementById("standings");
-    const rows = Array.from(table.rows).slice(1); // skip header
-
-    rows.sort((a, b) => {
-        const pointsA = parseInt(a.cells[2].innerText);
-        const pointsB = parseInt(b.cells[2].innerText);
-
-        const gdA = parseInt(a.cells[3].innerText);
-        const gdB = parseInt(b.cells[3].innerText);
-
-        const posA = parseInt(a.cells[0].innerText);
-        const posB = parseInt(b.cells[0].innerText);
-
-        // Primary: points descending
-        if (pointsB !== pointsA) return pointsB - pointsA;
-
-        // Secondary: GD descending
-        if (gdB !== gdA) return gdB - gdA;
-
-        // Tertiary: Position ascending
-        return posA - posB;
-    });
-
-    // Re-attach sorted rows
-    rows.forEach(row => table.appendChild(row));
+function sortTable() {
+  var table, rows, switching, i, x, y, shouldSwitch;
+  table = document.getElementById("myTable");
+  switching = true;
+  /*Make a loop that will continue until
+  no switching has been done:*/
+  while (switching) {
+    //start by saying: no switching is done:
+    switching = false;
+    rows = table.rows;
+    /*Loop through all table rows (except the
+    first, which contains table headers):*/
+    for (i = 1; i < (rows.length - 1); i++) {
+      //start by saying there should be no switching:
+      shouldSwitch = false;
+      /*Get the two elements you want to compare,
+      one from current row and one from the next:*/
+      x = rows[i].getElementsByTagName("TD")[0];
+      y = rows[i + 1].getElementsByTagName("TD")[0];
+      //check if the two rows should switch place:
+      if (Number(x.innerHTML) > Number(y.innerHTML)) {
+        //if so, mark as a switch and break the loop:
+        shouldSwitch = true;
+        break;
+      }
+    }
+    if (shouldSwitch) {
+      /*If a switch has been marked, make the switch
+      and mark that a switch has been done:*/
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+    }
+  }
 }
-
-// Run after page loads
-window.onload = sortStandings;
 </script>
 
 
@@ -427,6 +431,7 @@ window.onload = sortStandings;
 	</body>
 
 </html>
+
 
 
 
